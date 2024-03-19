@@ -1,0 +1,87 @@
+=============================###################################################===================================================================================
+launch intances of ubuntu of t2 medium and execute below commands
+install 2 instance with t2.micro for master node and worker node and execute below command
+start instance and give name master
+# comon commands on worker node and master node
+$ sudo apt-get update
+$ sudo apt-get install docker.io
+$ docker --version
+$ sudo usermod -aG docker $USER
+$ sudo systemctl start docker
+$ sudo systemctl enable docker
+$ sudo apt install curl
+$ curl -S https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+$ sudo apt-add-repository "deb http://apt.kubernetes.io/kubernetes-xenial main"
+$ sudo apt-get install kubeadm kubelet kubectl kubernetes-cni
+     # kubeadm is an kubernetes admin and kubelet not require fox worker node so while execute commands in worker node plz cut kubelet
+$ sudo apt-mark hold kubeadm kubelet kubectl-kubernetes-cni
+$ kubeadm version
+
+$ sudo swappoff -a 
+$ sudo systemctl daemon-reload
+$ sudo systemctl start kubelet
+% sudo systemctl enable kubelet.service
+
+====================================###########################################################################========================================================
+               EXECUTE BELOW COMMANDS ONLY IN MASTER NODE  master node is also known as control plane
+$ sudo kubeadm init 
+$ mkdir -P $HOME/.Kube
+$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+$ sudo chown $(id-u):$(id-g) $HOME/.kube/config
+$ kubectl get nodes
+$ kubeadm token create --print-join-command
+    From here you will a token ro add in worker node
+
+====================================###########################################################################========================================================
+             INSTALL ONE INSTANCE TO EXECUTE KUBECTL COMMANDS WHICH are called REMOTE INSTANCE
+$ sudo apt-get update -y
+$ curl -LO "https:dl.k8s.io/release/$(curl-L-Shttps://dl.k8s.io/release/table.txt)/bin/linux/amd64/kubectl"
+
+$ chmod +x ./kubectl
+$ sudo mv ./kubectl /usr/local/bin/kubectl
+$ kubectl version
+$ mkdir ~/.kube
+$ vi ~/.kube/config           go to master node and execute cat ~/.kube/config copy the content int this file and paste on worker nodes vi ~/.kube/config
+$ kubectl cluster info
+
+====================================###########################################################################========================================================
+                    GO TO MASTER NODE  
+$ kubectl get nodes 
+if it is not work then restart
+$ sudo systemctl start kubelet.service
+# We can get all namespace using below commands
+$ kubelet get ns 
+# create your own namespace by using following commands
+$ kubectl create namespace < namespace-space >
+
+====================================###########################################################################========================================================
+11th class
+
+$ vi javawebapppod.yml
+  apiversion: v1
+  kind: pod
+  metadata:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
